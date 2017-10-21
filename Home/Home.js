@@ -6,27 +6,26 @@ import {
   TextInput,
   TouchableHighlight
 } from 'react-native';
+import AppStyles from '../AppStyles.js'
 
 export default class HomeScreen extends React.Component {
 
   static navigationOptions = {
     title: 'Home',
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#1e2429'
+    },
+    headerTitleStyle: {
+      fontSize: 18
+    }
   };
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={AppStyles.container}>
         <Text>Home</Text>
       </View>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FF00FF',
-  },
-});
