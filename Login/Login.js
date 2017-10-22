@@ -77,7 +77,7 @@ export default class LoginScreen extends React.Component {
     const { navigate } = this.props.navigation;
 
     return (
-      <View style={AppStyles.container}>
+      <View style={LoginStyles.container}>
         <View style={[LoginStyles.title,
         {flex: this.state.titleHeight}]}>
           <Text style={LoginStyles.titleText}>

@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#282f35"
+  },
   form: {
     flex: 10
   },
@@ -45,6 +49,7 @@ export default StyleSheet.create({
   submit: {
     backgroundColor: '#c59a6d',
     height: 80,
+    elevation: 1,
     alignSelf: 'stretch',
     justifyContent: 'center',
     alignItems: 'center'

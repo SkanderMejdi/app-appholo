@@ -3,7 +3,21 @@ import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#282f35"
+    backgroundColor: "#ddd"
+  },
+  block: {
+    flex: 1,
+    backgroundColor: 'white',
+    elevation: 2,
+    marginLeft: 5,
+    marginRight: 5,
+    marginBottom: 10,
+    padding: 5
+  },
+  blockTitle: {
+    fontSize: 15,
+    color: '#888',
+    padding: 10,
   },
   backgroundImage: {
     flex: 1,
@@ -20,4 +34,23 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30
   },
+  icon: {
+    margin: 10,
+    height: 120,
+    padding: 120
+  },
+  inputFocus: {
+
+  },
+  input: {
+    marginLeft: 5,
+    marginRight: 5,
+    marginTop: 10,
+    marginBottom: 10,
+    elevation: 2,
+    paddingLeft: 15,
+    height: 50,
+    backgroundColor: 'white',
+    alignSelf: 'stretch',
+  }
 });
