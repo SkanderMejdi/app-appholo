@@ -81,7 +81,7 @@ export default class LoginScreen extends React.Component {
         <View style={[LoginStyles.title,
         {flex: this.state.titleHeight}]}>
           <Text style={LoginStyles.titleText}>
-            Appholo {this.state.titleHeight}
+            Appholo
           </Text>
         </View>
         <View style={[LoginStyles.form,
