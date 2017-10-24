@@ -3,6 +3,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Image,
   TextInput,
   Dimensions,
   ScrollView,
@@ -40,96 +41,137 @@ export default class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {this.scrollView.scrollTo({x: -30}) }, 1) // scroll view position fix
+    setTimeout(() => {this.categories.scrollTo({x: -30}) }, 1) // scroll view position fix
   }
 
   inputFocus(val) {
-    console.log(val);
     LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
     this.setState({
       focus: val
     });
+    if (val) {
+      this.refs.search.setNativeProps({text: ''});
+      this.refs.search.focus();
+    }
   }
 
   render() {
     return (
       <ScrollView style={AppStyles.container}>
-        <TextInput style={[AppStyles.input,
-        this.state.focus && AppStyles.inputFocus]}
-        onFocus={() => this.inputFocus(false)}
-        onBlur={() => this.inputFocus(false)}
-        underlineColorAndroid={'transparent'}>
-          <Text style={{
-            margin: 10,
-            height: 120,
-            paddingLeft: 120
-          }}>
-            <Icon name="search" size={20} color="#ccc" />
-          </Text>
-        </TextInput>
+        <View style={[
+            AppStyles.input,
+            !this.state.focus && AppStyles.inputBlur,
+            this.state.focus && AppStyles.inputFocus
+          ]}>
+          <TouchableHighlight
+            onPress={() => this.inputFocus(true)}>
+            <Icon name="search" size={20} color="#ccc" style={AppStyles.inputIcon} />
+          </TouchableHighlight>
+          <TextInput ref="search"
+            selectTextOnFocus
+            onBlur={() => this.inputFocus(false)}
+            underlineColorAndroid={'transparent'}
+            style={[this.state.focus && {position: 'absolute'}, AppStyles.inputField]}>
+          </TextInput>
+        </View>
         <View style={AppStyles.block}>
           <Text style={AppStyles.blockTitle}>Highlights</Text>
           <Carousel
-          delay={2000}
-          style={this.state.size}
-          autoplay
-          pageInfo
-          onAnimateNextPage={(p) => console.log(p)}>
-            <View style={[{ backgroundColor: '#BADA55' }, this.state.size]}>
-              <Text>{this.state.elevation}</Text>
+            delay={2000}
+            style={this.state.size}
+            autoplay
+            pageInfo
+            onAnimateNextPage={(p) => console.log(p)}>
+            <View style={this.state.size}>
+              <Image source={require('../Assets/01.jpg')} style={AppStyles.image} />
             </View>
-            <View style={[{ backgroundColor: 'red' }, this.state.size]}>
-              <Text>{this.state.elevation}</Text>
+            <View style={this.state.size}>
+              <Image source={require('../Assets/02.jpg')} style={AppStyles.image} />
             </View>
-            <View style={[{ backgroundColor: 'blue' }, this.state.size]}>
-              <Text>{this.state.elevation}</Text>
+            <View style={this.state.size}>
+              <Image source={require('../Assets/03.jpg')} style={AppStyles.image} />
+            </View>
+            <View style={this.state.size}>
+              <Image source={require('../Assets/04.jpg')} style={AppStyles.image} />
             </View>
           </Carousel>
         </View>
         <ScrollView
-        ref={(scrollView) => { this.scrollView = scrollView; }}
-        style={HomeStyles.filterBlock}
-        showsHorizontalScrollIndicator={false}
-        horizontal= {true}>
+          ref={(categories) => { this.categories = categories; }}
+          style={HomeStyles.filterBlock}
+          showsHorizontalScrollIndicator={false}
+          horizontal= {true}>
           <Text style={HomeStyles.filter}>
-            Catégorie 1
+            Maths
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 2
+            Astronomy
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 3
+            Music
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 4
+            Hitory
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 1
+            Cinema
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 2
+            Arts
           </Text>
           <Text style={HomeStyles.filter}>
-            Catégorie 3
-          </Text>
-          <Text style={HomeStyles.filter}>
-            Catégorie 4
-          </Text>
-          <Text style={HomeStyles.filter}>
-            Catégorie 1
-          </Text>
-          <Text style={HomeStyles.filter}>
-            Catégorie 2
-          </Text>
-          <Text style={HomeStyles.filter}>
-            Catégorie 3
-          </Text>
-          <Text style={HomeStyles.filter}>
-            Catégorie 4
+            Society
           </Text>
         </ScrollView>
         <View style={AppStyles.block}>
-          <Text style={AppStyles.blockTitle}>Highlights</Text>
+          <Text style={AppStyles.blockTitle}>Latest Modules</Text>
+            <ScrollView
+              ref={(latestModules) => { this.latestModules = latestModules; }}
+              style={[HomeStyles.filterBlock, AppStyles.modules]}
+              horizontal= {true}>
+                <View style={AppStyles.moduleSmall}>
+                  <Image source={require('../Assets/03.jpg')} style={AppStyles.thumbnail} />
+                  <View style={AppStyles.moduleSmallText}>
+                    <Text style={AppStyles.moduleSmallTitle}>Piano</Text>
+                    <Text style={AppStyles.moduleSmallCategorie}>Music</Text>
+                    <View style={AppStyles.stars}>
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/no-star.png')} style={AppStyles.star} />
+                    </View>
+                  </View>
+                </View>
+                <View style={AppStyles.moduleSmall}>
+                  <Image source={require('../Assets/02.jpg')} style={AppStyles.thumbnail} />
+                  <View style={AppStyles.moduleSmallText}>
+                    <Text style={AppStyles.moduleSmallTitle}>Algebra</Text>
+                    <Text style={AppStyles.moduleSmallCategorie}>Maths</Text>
+                    <View style={AppStyles.stars}>
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/no-star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/no-star.png')} style={AppStyles.star} />
+                    </View>
+                  </View>
+                </View>
+                <View style={AppStyles.moduleSmall}>
+                  <Image source={require('../Assets/01.jpg')} style={AppStyles.thumbnail} />
+                  <View style={AppStyles.moduleSmallText}>
+                    <Text style={AppStyles.moduleSmallTitle}>Planetarium</Text>
+                    <Text style={AppStyles.moduleSmallCategorie}>Astronomy</Text>
+                    <View style={AppStyles.stars}>
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                      <Image source={require('../Assets/star.png')} style={AppStyles.star} />
+                    </View>
+                  </View>
+                </View>
+            </ScrollView>
         </View>
       </ScrollView>
     );
