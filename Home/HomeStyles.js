@@ -4,6 +4,7 @@ export default StyleSheet.create({
   filterBlock: {
     flexDirection: 'row',
     margin: 10,
+    marginBottom: 20,
     overflow: 'scroll'
   },
   filter: {
