@@ -21,6 +21,8 @@ export default StyleSheet.create({
     marginRight: 5,
     marginBottom: 10,
     padding: 5,
+    paddingLeft: 10,
+    paddingRight: 10,
     borderRadius: 2
   },
   blockTitle: {

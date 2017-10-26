@@ -5,9 +5,10 @@ import {
   LayoutAnimation,
   TouchableHighlight
 } from 'react-native';
+import {StackNavigator} from 'react-navigation';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import SearchStyles from './SearchStyles.js';
-import Icon from 'react-native-vector-icons/FontAwesome';
 //import SearchScreen from './Search';
 
 export default class SearchField extends React.Component {
@@ -15,8 +16,13 @@ export default class SearchField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      focus: false
+      focus: false,
+      text: ''
     };
+  }
+
+  searchSubmit() {
+    console.log('value');
   }
 
   inputFocus(val) {
@@ -31,6 +37,7 @@ export default class SearchField extends React.Component {
   }
 
   render() {
+
     return (
       <View style={[
           SearchStyles.input,
@@ -44,7 +51,12 @@ export default class SearchField extends React.Component {
         <TextInput ref="search"
           selectTextOnFocus
           onBlur={() => this.inputFocus(false)}
+          onChangeText={(text) => this.setState({text: text})}
           underlineColorAndroid={'transparent'}
+          onSubmitEditing={() => this.props.navigate(
+            'Search',
+            {text: this.state.text}
+          )}
           style={[this.state.focus && {position: 'absolute'}, SearchStyles.inputField]}>
         </TextInput>
       </View>

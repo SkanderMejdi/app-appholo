@@ -9,9 +9,10 @@ import {
   LayoutAnimation,
   TouchableHighlight
 } from 'react-native';
+import Login from 'react-native-simple-login';
+
 import LoginStyles from './LoginStyles';
 import AppStyles from '../AppStyles.js';
-import Login from 'react-native-simple-login';
 
 export default class LoginScreen extends React.Component {
 
@@ -74,8 +75,6 @@ export default class LoginScreen extends React.Component {
 
   render() {
 
-    const { navigate } = this.props.navigation;
-
     return (
       <View style={LoginStyles.container}>
         <View style={[LoginStyles.title,
@@ -88,13 +87,12 @@ export default class LoginScreen extends React.Component {
         {bottom: this.state.formBottom}]}>
         <Login
         onLogin={this.onLogin}
-        baseButtonStyle = {LoginStyles.submit}
-        loginFormWrapperStyle = {LoginStyles.formWrapper}
-        inputWrapperStyle	= {LoginStyles.inputWrapper}
-        inputStyle = {LoginStyles.input}
-        inputIconStyle = {LoginStyles.inputIcon}
-        showLogoOnResetPassword = {false}
-        />
+        baseButtonStyle={LoginStyles.submit}
+        loginFormWrapperStyle={LoginStyles.formWrapper}
+        inputWrapperStyle={LoginStyles.inputWrapper}
+        inputStyle={LoginStyles.input}
+        inputIconStyle={LoginStyles.inputIcon}
+        showLogoOnResetPassword={false} />
         </View>
       </View>
     );

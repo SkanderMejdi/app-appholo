@@ -59,6 +59,10 @@ export default class ModuleList extends React.Component {
           <View style={ModuleStyles.listButton}>
             <Button
               title="See More"
+              onPress={() => this.props.navigate(
+                'Module',
+                {}
+              )}
               accessibilityLabel="Learn more about this purple button" />
           </View>
           <View style={ModuleStyles.stars}>

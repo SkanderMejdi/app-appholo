@@ -58,7 +58,6 @@ export default class HomeScreen extends React.Component {
     this.setState({
       size: this.getSize(window),
     });
-    console.log({ width, height });
   }
 
   render() {
@@ -108,16 +107,15 @@ export default class HomeScreen extends React.Component {
 
       <ScrollView style={AppStyles.container}>
 
-        <SearchField />
+        <SearchField navigate={this.props.navigation.navigate} />
 
-        <View style={AppStyles.block} onLayout={this.onLayout.bind(this)}>
-          <Text style={AppStyles.blockTitle}>Highlights</Text>
+        <View style={HomeStyles.blockCarousel} onLayout={this.onLayout.bind(this)}>
+          <Text style={HomeStyles.blockTitleCarousel}>Highlights</Text>
           <Carousel
             delay={2000}
             style={this.state.size}
             autoplay
-            pageInfo
-            onAnimateNextPage={(p) => console.log(p)}>
+            pageInfo>
             { carouselList }
           </Carousel>
         </View>
@@ -128,13 +126,13 @@ export default class HomeScreen extends React.Component {
           <Text style={AppStyles.blockTitle}>Latest Modules</Text>
           <ScrollView
             ref={(latestModules) => { this.latestModules = latestModules; }}
-            style={[HomeStyles.filterBlock, ModuleStyles.smallBlock]}
+            style={ModuleStyles.smallBlock}
             horizontal= {true}>
             { modulesList }
           </ScrollView>
         </View>
 
-        <SearchResult />
+        <SearchResult navigate={this.props.navigation.navigate} />
 
       </ScrollView>
     );

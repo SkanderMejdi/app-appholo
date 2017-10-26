@@ -1,20 +1,28 @@
 import React from 'react';
 import {
+  ScrollView,
   View,
-  Text
+  Text,
 } from 'react-native';
 
 import AppStyles from '../AppStyles.js';
-import SearchStyles from './SearchStyles.js';
+import ModuleStyles from './ModuleStyles.js';
 
-import ModuleList from '../Module/ModuleList.js';
+import ModuleSmall from '../Module/ModuleSmall.js';
+import SearchResult from '../Search/SearchResult.js';
 
-export default class SearchResult extends React.Component {
+export default class ModuleScreen extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
+  static navigationOptions = {
+    title: 'Module',
+    headerTintColor: 'white',
+    headerStyle: {
+      backgroundColor: '#1e2429'
+    },
+    headerTitleStyle: {
+      fontSize: 18
+    }
+  };
 
   render() {
 
@@ -41,25 +49,30 @@ export default class SearchResult extends React.Component {
         stars: 5,
       },
     ];
-
-    var self = this;
     var modulesList = modules.map(function(module){
-      return <ModuleList
+      return <ModuleSmall
         img={module.img}
         title={module.title}
         stars={module.stars}
-        navigate={self.props.navigate}
         category={module.category}
         key={module.id} />;
     });
 
     return (
-      <View style={AppStyles.block}>
-        <Text style={AppStyles.blockTitle}>More</Text>
-        <View style={SearchStyles.results}>
-          { modulesList }
+
+      <ScrollView style={AppStyles.container}>
+
+        <View style={AppStyles.block}>
+          <Text style={AppStyles.blockTitle}>Similar</Text>
+          <ScrollView
+            ref={(latestModules) => { this.latestModules = latestModules; }}
+            style={ModuleStyles.smallBlock}
+            horizontal={true}>
+            { modulesList }
+          </ScrollView>
         </View>
-      </View>
-    )
+
+      </ScrollView>
+    );
   }
 }

@@ -4,13 +4,17 @@ import {StackNavigator} from 'react-navigation';
 
 import HomeScreen from './Home/Home';
 import LoginScreen from './Login/Login';
+import SearchScreen from './Search/Search';
+import ModuleScreen from './Module/Module';
 
 UIManager.setLayoutAnimationEnabledExperimental
 && UIManager.setLayoutAnimationEnabledExperimental(true);
 
 const Appholo = StackNavigator({
   Login: { screen: LoginScreen },
-  Home: { screen: HomeScreen }
+  Home: { screen: HomeScreen },
+  Search: { screen: SearchScreen },
+  Module: { screen: ModuleScreen }
 });
 
 export default class App extends React.Component {
