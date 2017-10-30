@@ -3,23 +3,21 @@ import {
   ScrollView,
   Animated,
   View,
-  Dimensions,
   Image,
   Text
 } from 'react-native';
-import Carousel from 'react-native-looped-carousel';
 
 import AppStyles from '../AppStyles.js';
 import ModuleStyles from './ModuleStyles.js';
 import HomeStyles from '../Home/HomeStyles.js';
 
-import ModuleSmall from '../Module/ModuleSmall.js';
+import ModuleSmall from './ModuleSmall.js';
+import HomeCarousel from '../Home/HomeCarousel.js';
 import SearchResult from '../Search/SearchResult.js';
 
 const HEADER_MAX_HEIGHT = 270;
 const HEADER_MIN_HEIGHT = 90;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-const window = Dimensions.get('window');
 
 export default class ModuleScreen extends React.Component {
 
@@ -38,26 +36,7 @@ export default class ModuleScreen extends React.Component {
     super(props);
     this.state = {
       scrollY: new Animated.Value(0),
-      size: this.getSize(window),
     };
-  }
-
-  getSize(window) {
-    if (window.width < window.height) {
-      height = window.height / 4;
-      width = window.width - 20;
-    } else {
-      height = window.height / 2;
-      width = window.width - 20;
-    }
-    return {width, height};
-  }
-
-  onLayout(e) {
-    window = Dimensions.get('window');
-    this.setState({
-      size: this.getSize(window),
-    });
   }
 
   render() {
@@ -139,15 +118,6 @@ export default class ModuleScreen extends React.Component {
       )
     });
 
-    var self = this;
-    var carouselList = module.screenshots.map(function(screenshot) {
-      return (
-        <View key={screenshot} style={self.state.size}>
-          <Image source={{ uri: screenshot }} style={AppStyles.image} />
-        </View>
-      )
-    })
-
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_MAX_HEIGHT],
       outputRange: [HEADER_MAX_HEIGHT, HEADER_MIN_HEIGHT],
@@ -196,16 +166,7 @@ export default class ModuleScreen extends React.Component {
               <Text>{module.description}</Text>
             </View>
 
-            <View style={HomeStyles.blockCarousel} onLayout={this.onLayout.bind(this)}>
-              <Text style={HomeStyles.blockTitleCarousel}>Pictures</Text>
-              <Carousel
-                delay={2000}
-                style={this.state.size}
-                autoplay
-                pageInfo>
-                { carouselList }
-              </Carousel>
-            </View>
+            <HomeCarousel imgs={module.screenshots} />
 
             <View style={AppStyles.block}>
               <Text style={AppStyles.blockTitle}>Reviews</Text>
