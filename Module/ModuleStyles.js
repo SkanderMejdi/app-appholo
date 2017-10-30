@@ -1,6 +1,14 @@
 import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
+  scroll: {
+    marginTop: -90
+  },
+  scrollContent: {
+    marginTop: 270,
+    paddingTop: 10,
+    marginBottom: -10
+  },
   smallBlock: {
     height: 125,
   },
@@ -82,5 +90,41 @@ export default StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 30,
     marginTop: -20
+  },
+  topBlock: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    top: 0,
+    width: '100%',
+    flex: 1,
+    elevation: 4,
+    borderRadius: 2,
+    backgroundColor: '#1e2429'
+  },
+  header: {
+    height: 270 / 3,
+    backgroundColor: 'rgba(30, 36, 41, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    padding: 10,
+  },
+  titleWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '70%',
+    borderBottomWidth: 3,
+    borderBottomColor: '#c59a6d',
+  },
+  title: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 40,
+  },
+  author: {
+    fontSize: 15,
+    color: '#888',
+    padding: 5,
   }
 });
