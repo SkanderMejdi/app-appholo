@@ -11,6 +11,11 @@ import HomeCategories from '../Home/HomeCategories.js';
 
 export default class SearchScreen extends React.Component {
 
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
+
   static navigationOptions = {
     title: 'Search',
     headerTintColor: 'white',
@@ -29,7 +34,7 @@ export default class SearchScreen extends React.Component {
 
         <SearchField navigate={this.props.navigation.navigate} />
 
-        <HomeCategories />
+        <HomeCategories navigate={this.props.navigation.navigate} />
 
         <SearchResult navigate={this.props.navigation.navigate} />
 

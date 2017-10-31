@@ -1,28 +1,14 @@
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
-  TextInput,
-  Dimensions,
-  ScrollView,
-  LayoutAnimation,
+  TouchableWithoutFeedback
 } from 'react-native';
 
 import ModuleStyles from './ModuleStyles.js';
 
 export default class ModuleSmall extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: this.props.title,
-      stars: this.props.stars,
-      category: this.props.category,
-      img: this.props.img
-    };
-  }
 
   render() {
 
@@ -33,10 +19,10 @@ export default class ModuleSmall extends React.Component {
         if (starNb > 0) {
           stars.push(
             <Image
-            source={require('../Assets/star.png')}
-            key={starNb}
-            style={ModuleStyles.star} />
-        )
+              source={require('../Assets/star.png')}
+              key={starNb}
+              style={ModuleStyles.star} />
+          )
         } else {
           stars.push(
             <Image
@@ -48,18 +34,22 @@ export default class ModuleSmall extends React.Component {
         starNb--;
       }
     }
-
     return (
-      <View style={ModuleStyles.small}>
-        <Image source={{ uri: this.state.img }} style={ModuleStyles.smallThumbnail} />
-        <View style={ModuleStyles.smallText}>
-          <Text style={ModuleStyles.smallTitle}>{this.state.title}</Text>
-          <Text style={ModuleStyles.smallCategory}>{this.state.category}</Text>
-          <View style={ModuleStyles.stars}>
-            { stars }
+      <TouchableWithoutFeedback onPress={() => this.props.navigate(
+          'Module',
+          {navigate: this.props.navigate}
+        )}>
+        <View style={ModuleStyles.small}>
+          <Image source={{ uri: this.props.img }} style={ModuleStyles.smallThumbnail} />
+          <View style={ModuleStyles.smallText}>
+            <Text style={ModuleStyles.smallTitle}>{this.props.title}</Text>
+            <Text style={ModuleStyles.smallCategory}>{this.props.category}</Text>
+            <View style={ModuleStyles.stars}>
+              { stars }
+            </View>
           </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     );
   }
 }

@@ -126,5 +126,36 @@ export default StyleSheet.create({
     fontSize: 15,
     color: '#888',
     padding: 5,
+  },
+  review: {
+    width: '100%',
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: "#888",
+    paddingBottom: 10
+  },
+  reviewAuthor: {
+    fontSize: 18
+  },
+  reviewDate: {
+    fontSize: 13,
+    fontStyle: 'italic',
+    color: '#888'
+  },
+  reviewText: {
+    marginTop: 15
+  },
+  starReviews: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 70
+  },
+  starReviewsText: {
+    fontSize: 25,
+    elevation: 5,
+    position: 'absolute'
+  },
+  starReviewsImage: {
+    resizeMode: 'contain',
   }
 });

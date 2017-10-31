@@ -3,13 +3,12 @@ import {
   View,
   TextInput,
   LayoutAnimation,
-  TouchableHighlight
+  TouchableWithoutFeedback
 } from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 import SearchStyles from './SearchStyles.js';
-//import SearchScreen from './Search';
 
 export default class SearchField extends React.Component {
 
@@ -44,10 +43,10 @@ export default class SearchField extends React.Component {
           !this.state.focus && SearchStyles.inputBlur,
           this.state.focus && SearchStyles.inputFocus
         ]}>
-        <TouchableHighlight
+        <TouchableWithoutFeedback
           onPress={() => this.inputFocus(true)}>
           <Icon name="search" size={20} color="#ccc" style={SearchStyles.inputIcon} />
-        </TouchableHighlight>
+        </TouchableWithoutFeedback>
         <TextInput ref="search"
           selectTextOnFocus
           onBlur={() => this.inputFocus(false)}

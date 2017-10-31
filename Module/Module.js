@@ -99,8 +99,10 @@ export default class ModuleScreen extends React.Component {
         stars: 5,
       },
     ];
+    var self = this;
     var modulesList = modules.map(function(module){
       return <ModuleSmall
+        navigate={self.props.navigation.navigate}
         img={module.img}
         title={module.title}
         stars={module.stars}
@@ -110,10 +112,10 @@ export default class ModuleScreen extends React.Component {
 
     var reviewsList = module.reviews.map(function(review){
       return (
-        <View key={review.id}>
-          <Text>{review.author}</Text>
-          <Text>{review.date}</Text>
-          <Text>{review.text}</Text>
+        <View style={ModuleStyles.review} key={review.id}>
+          <Text style={ModuleStyles.reviewAuthor}>{review.author}</Text>
+          <Text style={ModuleStyles.reviewDate}>{review.date}</Text>
+          <Text style={ModuleStyles.reviewText}>{review.text}</Text>
         </View>
       )
     });
@@ -170,10 +172,10 @@ export default class ModuleScreen extends React.Component {
 
             <View style={AppStyles.block}>
               <Text style={AppStyles.blockTitle}>Reviews</Text>
-              <View>
-                <Text>{module.stars}</Text>
+              <View style={ModuleStyles.starReviews}>
+                <Text style={ModuleStyles.starReviewsText}>{module.stars}</Text>
                 <Image source={require('../Assets/star.png')}
-                  style={AppStyles.image} />
+                  style={[AppStyles.image, ModuleStyles.starReviewsImage]} />
               </View>
               { reviewsList }
             </View>

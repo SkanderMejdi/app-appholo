@@ -16,8 +16,10 @@ export default StyleSheet.create({
     paddingRight: 20,
     paddingLeft: 20,
     height: 37,
-    color: 'white',
     marginRight: 10,
+  },
+  filterText: {
+    color: 'white',
   },
   blockCarousel: {
     flex: 1,

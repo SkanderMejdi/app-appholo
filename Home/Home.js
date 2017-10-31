@@ -1,11 +1,9 @@
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Image,
   TextInput,
-  LayoutAnimation,
   ScrollView,
 } from 'react-native';
 
@@ -57,17 +55,15 @@ export default class HomeScreen extends React.Component {
         stars: 5,
       },
     ];
-    var modulesList = modules.map(function(module){
+    var self = this;
+    var modulesList = modules.map(function(module) {
       return <ModuleSmall
+        navigate={self.props.navigation.navigate}
         img={module.img}
         title={module.title}
         stars={module.stars}
         category={module.category}
         key={module.id} />;
-    });
-
-    var modulesCarousel = modules.map(function(module){
-      return module.img;
     });
 
     return (
@@ -76,9 +72,11 @@ export default class HomeScreen extends React.Component {
 
         <SearchField navigate={this.props.navigation.navigate} />
 
-        <HomeCarousel imgs={modulesCarousel} />
+        <HomeCarousel imgs={modules.map(function(module){
+          return module.img;
+        })} />
 
-        <HomeCategories />
+        <HomeCategories navigate={this.props.navigation.navigate} />
 
         <View style={AppStyles.block}>
           <Text style={AppStyles.blockTitle}>Latest Modules</Text>

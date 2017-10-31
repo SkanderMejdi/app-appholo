@@ -1,29 +1,14 @@
 import React from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Button,
   Image,
-  TextInput,
-  Dimensions,
-  ScrollView,
-  LayoutAnimation,
 } from 'react-native';
 
 import ModuleStyles from './ModuleStyles.js';
 
 export default class ModuleList extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      title: this.props.title,
-      stars: this.props.stars,
-      category: this.props.category,
-      img: this.props.img,
-    };
-  }
 
   render() {
 
@@ -34,10 +19,10 @@ export default class ModuleList extends React.Component {
         if (starNb > 0) {
           stars.push(
             <Image
-            source={require('../Assets/star.png')}
-            key={starNb}
-            style={ModuleStyles.star} />
-        )
+              source={require('../Assets/star.png')}
+              key={starNb}
+              style={ModuleStyles.star} />
+          )
         } else {
           stars.push(
             <Image
@@ -52,16 +37,16 @@ export default class ModuleList extends React.Component {
 
     return (
       <View style={ModuleStyles.list}>
-        <Image ref={"List"+this.state.title} source={{ uri: this.state.img }} style={ModuleStyles.listThumbnails} />
+        <Image ref={"List"+this.props.title} source={{ uri: this.props.img }} style={ModuleStyles.listThumbnails} />
         <View style={ModuleStyles.listText}>
-          <Text style={ModuleStyles.listTitle}>{this.state.title}</Text>
-          <Text style={ModuleStyles.listCategory}>{this.state.category}</Text>
+          <Text style={ModuleStyles.listTitle}>{this.props.title}</Text>
+          <Text style={ModuleStyles.listCategory}>{this.props.category}</Text>
           <View style={ModuleStyles.listButton}>
             <Button
               title="See More"
               onPress={() => this.props.navigate(
                 'Module',
-                {}
+                {navigate: this.props.navigate}
               )}
               accessibilityLabel="Learn more about this purple button" />
           </View>
