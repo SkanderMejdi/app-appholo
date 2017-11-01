@@ -13,6 +13,7 @@ import Login from 'react-native-simple-login';
 
 import LoginStyles from './LoginStyles';
 import AppStyles from '../AppStyles.js';
+import Api from '../Api/Api.js';
 
 export default class LoginScreen extends React.Component {
 
@@ -70,7 +71,13 @@ export default class LoginScreen extends React.Component {
   }
 
   onLogin = (email, password) => {
-    this.props.navigation.navigate('Home')
+    var self = this;
+    self.props.navigation.navigate('Home')
+    Api.login(email, password).then(function(res) {
+      if (res._id) {
+        self.props.navigation.navigate('Home')
+      }
+    });
   }
 
   render() {

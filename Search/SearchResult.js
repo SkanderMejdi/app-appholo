@@ -7,6 +7,7 @@ import {
 import AppStyles from '../AppStyles.js';
 import SearchStyles from './SearchStyles.js';
 
+import Api from '../Api/Api.js';
 import ModuleList from '../Module/ModuleList.js';
 
 export default class SearchResult extends React.Component {
