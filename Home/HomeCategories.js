@@ -10,15 +10,6 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 export default class HomeCategories extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
-
-  componentDidMount() {
-    setTimeout(() => {this.categories.scrollTo({x: -30}) }, 1) // scroll view position fix
-  }
-
   render() {
 
     var categories = [
@@ -31,7 +22,7 @@ export default class HomeCategories extends React.Component {
           key={index}
           onPress={() => self.props.navigate(
             'Search',
-            {category: category}
+            {theme: category}
           )}>
           <View style={HomeStyles.filter}>
             <Text style={HomeStyles.filterText}>

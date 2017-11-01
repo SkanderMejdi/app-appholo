@@ -17,6 +17,8 @@ export default class HomeCarousel extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log('ttttttttttttttttt');
+    console.log(this.props);
     this.state = {
       size: this.getSize(window),
     };
@@ -46,7 +48,9 @@ export default class HomeCarousel extends React.Component {
     var carouselList = this.props.imgs.map(function(img, index) {
       return (
         <View key={index} style={self.state.size}>
-          <Image source={{ uri: img }} style={AppStyles.image} />
+          <Image source={{
+              uri: 'http://eip.epitech.eu/2018/appholo/'+img
+            }} style={AppStyles.image} />
         </View>
       )
     })

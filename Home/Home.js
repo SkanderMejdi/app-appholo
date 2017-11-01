@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Text,
   View,
-  Image,
   TextInput,
   ScrollView,
   ActivityIndicator
@@ -12,6 +11,7 @@ import AppStyles from '../AppStyles.js';
 import HomeStyles from './HomeStyles.js';
 import ModuleStyles from '../Module/ModuleStyles.js';
 
+import ModuleUtils from '../Module/ModuleUtils.js';
 import Api from '../Api/Api.js';
 import HomeCategories from './HomeCategories.js';
 import HomeCarousel from './HomeCarousel.js';
@@ -39,25 +39,13 @@ export default class HomeScreen extends React.Component {
     }
   }
 
-  latestModules(json) {
-    var self = this;
-    return json.map(function(module) {
-      return <ModuleSmall
-        navigate={self.props.navigation.navigate}
-        img={module.img}
-        title={module.title}
-        stars={module.stars}
-        category={module.category}
-        key={module.id} />;
-    });
-  }
-
   componentDidMount() {
     var self = this;
-    Api.modules().then(function(res) {
+    Api.modules({}).then(function(res) {
       self.setState({
         isLoading: false,
-        modules: self.latestModules(res)
+        modulesList: ModuleUtils.buildSmall(res, self),
+        modules: res
       })
     })
   }
@@ -66,8 +54,8 @@ export default class HomeScreen extends React.Component {
 
     if (this.state.isLoading) {
       return (
-        <View style={{flex: 1, paddingTop: 20}}>
-          <ActivityIndicator />
+        <View style={AppStyles.loadingBox}>
+          <ActivityIndicator size="large" />
         </View>
       );
     }
@@ -78,8 +66,8 @@ export default class HomeScreen extends React.Component {
 
         <SearchField navigate={this.props.navigation.navigate} />
 
-        <HomeCarousel imgs={this.state.modules.map(function(module){
-          return module.img;
+        <HomeCarousel imgs={this.state.modulesList.map(function(module){
+          return module.path;
         })} />
 
         <HomeCategories navigate={this.props.navigation.navigate} />
@@ -94,7 +82,10 @@ export default class HomeScreen extends React.Component {
           </ScrollView>
         </View>
 
-        <SearchResult navigate={this.props.navigation.navigate} />
+        <SearchResult
+          navigate={this.props.navigation.navigate}
+          modules={this.state.modules}
+          />
 
       </ScrollView>
     );

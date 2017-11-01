@@ -4,13 +4,16 @@ import {
   Animated,
   View,
   Image,
-  Text
+  Text,
+  ActivityIndicator
 } from 'react-native';
 
 import AppStyles from '../AppStyles.js';
 import ModuleStyles from './ModuleStyles.js';
 import HomeStyles from '../Home/HomeStyles.js';
 
+import ModuleUtils from './ModuleUtils.js';
+import Api from '../Api/Api.js';
 import ModuleSmall from './ModuleSmall.js';
 import HomeCarousel from '../Home/HomeCarousel.js';
 import SearchResult from '../Search/SearchResult.js';
@@ -34,91 +37,63 @@ export default class ModuleScreen extends React.Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props);
     this.state = {
       scrollY: new Animated.Value(0),
+      isLoading: true
     };
   }
 
-  render() {
-
-    var module = {
-      id: 1,
-      title: 'Piano',
-      description: 'Jolie description de module',
-      category: 'Music',
-      img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/03.jpg',
-      screenshots: [
-        'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/01.jpg',
-        'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/02.jpg',
-        'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/03.jpg'
-      ],
-      stars: 4,
-      author: 'toto',
-      reviews: [
-        {
-          id: 1,
-          author: 'toto',
-          text: 'Nath',
-          date: '20 dec'
-        },
-        {
-          id: 2,
-          author: 'titi',
-          text: 'titi',
-          date: '21 dec'
-        },
-        {
-          id: 3,
-          author: 'tata',
-          text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-          date: '21 dec'
-        }
-      ]
-    }
-
-    var modules = [
-      {
-        id: 1,
-        title: 'Piano',
-        category: 'Music',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/02.jpg',
-        stars: 4,
-      },
-      {
-        id: 2,
-        title: 'Algebra',
-        category: 'Maths',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/04.jpg',
-        stars: 3,
-      },
-      {
-        id: 3,
-        title: 'Planetarium',
-        category: 'Astronomy',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/01.jpg',
-        stars: 5,
-      },
-    ];
-    var self = this;
-    var modulesList = modules.map(function(module){
-      return <ModuleSmall
-        navigate={self.props.navigation.navigate}
-        img={module.img}
-        title={module.title}
-        stars={module.stars}
-        category={module.category}
-        key={module.id} />;
-    });
-
-    var reviewsList = module.reviews.map(function(review){
+  buildReviews() {
+    if (module.commentary != 0) {
       return (
-        <View style={ModuleStyles.review} key={review.id}>
-          <Text style={ModuleStyles.reviewAuthor}>{review.author}</Text>
+        <View style={AppStyles.logMessageBox}>
+          <Text style={AppStyles.logMessage}>Pas de commentaires</Text>
+        </View>
+      );
+    }
+    return this.state.module.commentary.map(function(review){
+      return (
+        <View style={ModuleStyles.review} key={review._id}>
+          <Text style={ModuleStyles.reviewAuthor}>{review.from}</Text>
           <Text style={ModuleStyles.reviewDate}>{review.date}</Text>
-          <Text style={ModuleStyles.reviewText}>{review.text}</Text>
+          <Text style={ModuleStyles.reviewText}>{review.content}</Text>
         </View>
       )
     });
+  }
+
+  componentDidMount() {
+    var self = this;
+    Api.module(this.props.navigation.state.params.id)
+    .then(function(module) {
+      Api.modules({them: module.them})
+      .then(function(modules) {
+        for (var i = 0; i < modules.length; i++) {
+          if (modules[i]._id == module._id) {
+            modules.splice(i, 1);
+            break;
+          }
+          console.log('titi');
+        }
+        if (modules.length == 0) {
+          modules =
+          <View style={AppStyles.logMessageBox}>
+            <Text style={AppStyles.logMessage}>Pas de modules similaires</Text>
+          </View>
+        } else {
+          modules = ModuleUtils.buildSmall(modules, self)
+        }
+        self.setState({
+          isLoading: false,
+          module: module,
+          modules: modules
+        })
+      })
+    })
+  }
+
+  render() {
 
     const headerHeight = this.state.scrollY.interpolate({
       inputRange: [0, HEADER_MAX_HEIGHT],
@@ -138,20 +113,30 @@ export default class ModuleScreen extends React.Component {
       extrapolate: 'clamp',
     });
 
+    if (this.state.isLoading) {
+      return (
+        <View style={AppStyles.loadingBox}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+
     return (
 
       <View style={AppStyles.container}>
 
         <Animated.View style={[ModuleStyles.topBlock, {height: headerHeight}]}>
           <Animated.Image
-            source={{ uri: module.img }}
+            source={{
+              uri: 'http://eip.epitech.eu/2018/appholo/'+this.state.module.path
+            }}
             style={[AppStyles.image, {opacity: imageOpacity}]} />
           <Animated.View style={{height: headerPaddingHeight}}></Animated.View>
           <View style={ModuleStyles.header}>
             <View style={ModuleStyles.titleWrapper}>
-              <Text style={ModuleStyles.title}>{module.title}</Text>
+              <Text style={ModuleStyles.title}>{this.state.module.name}</Text>
             </View>
-            <Text style={ModuleStyles.author}>{module.author}</Text>
+            <Text style={ModuleStyles.author}>{this.state.module.author}</Text>
           </View>
         </Animated.View>
 
@@ -165,19 +150,21 @@ export default class ModuleScreen extends React.Component {
 
             <View style={AppStyles.block}>
               <Text style={AppStyles.blockTitle}>Description</Text>
-              <Text>{module.description}</Text>
+              <Text>{this.state.module.description}</Text>
             </View>
 
-            <HomeCarousel imgs={module.screenshots} />
+            <HomeCarousel imgs={this.state.module.screenshots} />
 
             <View style={AppStyles.block}>
               <Text style={AppStyles.blockTitle}>Reviews</Text>
               <View style={ModuleStyles.starReviews}>
-                <Text style={ModuleStyles.starReviewsText}>{module.stars}</Text>
+                <Text style={ModuleStyles.starReviewsText}>{
+                    ModuleUtils.getStars(this.state.module.commentary)
+                  }</Text>
                 <Image source={require('../Assets/star.png')}
                   style={[AppStyles.image, ModuleStyles.starReviewsImage]} />
               </View>
-              { reviewsList }
+              { this.buildReviews() }
             </View>
 
             <View style={[AppStyles.block, {marginBottom: 20}]}>
@@ -186,7 +173,7 @@ export default class ModuleScreen extends React.Component {
                 ref={(latestModules) => { this.latestModules = latestModules; }}
                 style={ModuleStyles.smallBlock}
                 horizontal={true}>
-                { modulesList }
+                { this.state.modules }
               </ScrollView>
             </View>
           </View>

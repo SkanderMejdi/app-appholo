@@ -39,39 +39,23 @@ var Api = {
 
   login: function(login, password) {
     return this.apiPost(
-      'http://192.168.1.154:8080/api/user/authenticate',
+      'http://192.168.42.202:8080/api/user/authenticate',
       {login: login, password: password}
     )
   },
 
-  modules: async function() {
-    return this.apiGet('http://192.168.1.154:8080/api/modules/listModules')
-  },
-
-  modulesCategory: function(category) {
+  modules: function(params) {
     return this.apiPost(
-      'http://192.168.1.154:8080/api/modules/listModules',
-      {category: category}
-    )
-  },
-
-  modulesCategory: function(name) {
-    return this.apiPost(
-      'http://192.168.1.154:8080/api/modules/listModules',
-      {name: name}
+      'http://192.168.42.202:8080/api/modules/listModules',
+      params
     )
   },
 
   module: function(id) {
-    return this.apiPost(
-      'http://192.168.1.154:8080/api/modules/informations',
-      {id: id}
+    return this.apiGet(
+      'http://192.168.42.202:8080/api/modules/informations?id='+id
     )
   },
-
-  categories: function(id) {
-    return this.apiGet('http://192.168.1.154:8080/api/modules/informations')
-  }
 
 };
 

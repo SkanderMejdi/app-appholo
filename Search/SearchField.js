@@ -54,7 +54,7 @@ export default class SearchField extends React.Component {
           underlineColorAndroid={'transparent'}
           onSubmitEditing={() => this.props.navigate(
             'Search',
-            {text: this.state.text}
+            {name: this.state.text}
           )}
           style={[this.state.focus && {position: 'absolute'}, SearchStyles.inputField]}>
         </TextInput>

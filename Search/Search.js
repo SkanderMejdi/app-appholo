@@ -1,20 +1,18 @@
 import React from 'react';
 import {
   ScrollView,
+  View,
+  ActivityIndicator
 } from 'react-native';
 
 import AppStyles from '../AppStyles.js';
 
+import Api from '../Api/Api.js';
 import SearchField from './SearchField.js';
 import SearchResult from './SearchResult.js';
 import HomeCategories from '../Home/HomeCategories.js';
 
 export default class SearchScreen extends React.Component {
-
-  constructor(props) {
-    super(props);
-    console.log(this.props);
-  }
 
   static navigationOptions = {
     title: 'Search',
@@ -27,7 +25,34 @@ export default class SearchScreen extends React.Component {
     }
   };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      isLoading: true
+    }
+  }
+
+  componentDidMount() {
+    var self = this;
+    Api.modules(this.props.navigation.state.params)
+    .then(function(res) {
+      self.setState({
+        isLoading: false,
+        modules: res
+      })
+    })
+  }
+
   render() {
+
+    if (this.state.isLoading) {
+      return (
+        <View style={AppStyles.loadingBox}>
+          <ActivityIndicator size="large" />
+        </View>
+      );
+    }
+
     return (
 
       <ScrollView style={AppStyles.container}>
@@ -36,7 +61,9 @@ export default class SearchScreen extends React.Component {
 
         <HomeCategories navigate={this.props.navigation.navigate} />
 
-        <SearchResult navigate={this.props.navigation.navigate} />
+        <SearchResult
+          navigate={this.props.navigation.navigate}
+          modules={this.state.modules}/>
 
       </ScrollView>
     );

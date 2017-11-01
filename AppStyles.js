@@ -5,6 +5,23 @@ export default StyleSheet.create({
     flex: 1,
     backgroundColor: "#ddd"
   },
+  loadingBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#282f35',
+    width: '100%'
+  },
+  logMessage: {
+    color: "#888",
+    fontSize: 20
+  },
+  logMessageBox: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: 100
+  },
   image: {
     flex: 1,
     resizeMode: 'cover',

@@ -7,40 +7,23 @@ import {
 } from 'react-native';
 
 import ModuleStyles from './ModuleStyles.js';
+import ModuleUtils from './ModuleUtils.js';
 
 export default class ModuleSmall extends React.Component {
 
   render() {
 
-    var stars = [];
-    for (var i = 0; i < 5; i++) {
-      starNb = this.props.stars;
-      for (var i = 0; i < 5; i++) {
-        if (starNb > 0) {
-          stars.push(
-            <Image
-              source={require('../Assets/star.png')}
-              key={starNb}
-              style={ModuleStyles.star} />
-          )
-        } else {
-          stars.push(
-            <Image
-              source={require('../Assets/no-star.png')}
-              key={starNb}
-              style={ModuleStyles.star} />
-          )
-        }
-        starNb--;
-      }
-    }
+    var stars = ModuleUtils.stars(this.props.commentariy);
+
     return (
       <TouchableWithoutFeedback onPress={() => this.props.navigate(
           'Module',
-          {navigate: this.props.navigate}
+          {navigate: this.props.navigate, id: this.props.id}
         )}>
         <View style={ModuleStyles.small}>
-          <Image source={{ uri: this.props.img }} style={ModuleStyles.smallThumbnail} />
+          <Image source={{
+              uri: 'http://eip.epitech.eu/2018/appholo/'+this.props.img
+            }} style={ModuleStyles.smallThumbnail} />
           <View style={ModuleStyles.smallText}>
             <Text style={ModuleStyles.smallTitle}>{this.props.title}</Text>
             <Text style={ModuleStyles.smallCategory}>{this.props.category}</Text>

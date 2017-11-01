@@ -7,37 +7,19 @@ import {
 } from 'react-native';
 
 import ModuleStyles from './ModuleStyles.js';
+import ModuleUtils from './ModuleUtils.js';
 
 export default class ModuleList extends React.Component {
 
   render() {
 
-    var stars = [];
-    for (var i = 0; i < 5; i++) {
-      starNb = this.props.stars;
-      for (var i = 0; i < 5; i++) {
-        if (starNb > 0) {
-          stars.push(
-            <Image
-              source={require('../Assets/star.png')}
-              key={starNb}
-              style={ModuleStyles.star} />
-          )
-        } else {
-          stars.push(
-            <Image
-              source={require('../Assets/no-star.png')}
-              key={starNb}
-              style={ModuleStyles.star} />
-          )
-        }
-        starNb--;
-      }
-    }
+    var stars = ModuleUtils.stars(this.props.commentariy);
 
     return (
       <View style={ModuleStyles.list}>
-        <Image ref={"List"+this.props.title} source={{ uri: this.props.img }} style={ModuleStyles.listThumbnails} />
+        <Image ref={"List"+this.props.title} source={{
+            uri: 'http://eip.epitech.eu/2018/appholo/'+this.props.img
+          }} style={ModuleStyles.listThumbnails} />
         <View style={ModuleStyles.listText}>
           <Text style={ModuleStyles.listTitle}>{this.props.title}</Text>
           <Text style={ModuleStyles.listCategory}>{this.props.category}</Text>
@@ -46,7 +28,7 @@ export default class ModuleList extends React.Component {
               title="See More"
               onPress={() => this.props.navigate(
                 'Module',
-                {navigate: this.props.navigate}
+                {navigate: this.props.navigate, id: this.props.id}
               )}
               accessibilityLabel="Learn more about this purple button" />
           </View>

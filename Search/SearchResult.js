@@ -14,45 +14,30 @@ export default class SearchResult extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props);
+    console.log(props);
   }
 
   render() {
 
-    var modules = [
-      {
-        id: 1,
-        title: 'Piano',
-        category: 'Music',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/02.jpg',
-        stars: 4,
-      },
-      {
-        id: 2,
-        title: 'Algebra',
-        category: 'Maths',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/04.jpg',
-        stars: 3,
-      },
-      {
-        id: 3,
-        title: 'Planetarium',
-        category: 'Astronomy',
-        img: 'http://eip.epitech.eu/2018/appholo/assets/img/portfolio/01.jpg',
-        stars: 5,
-      },
-    ];
-
     var self = this;
-    var modulesList = modules.map(function(module){
-      return <ModuleList
-        img={module.img}
-        title={module.title}
-        stars={module.stars}
-        navigate={self.props.navigate}
-        category={module.category}
-        key={module.id} />;
-    });
+    var modulesList = null;
+    if (!this.props.modules || this.props.modules.length == 0) {
+      modulesList =
+      <View style={AppStyles.logMessageBox}>
+        <Text style={AppStyles.logMessage}>Pas de résultats</Text>
+      </View>
+    } else {
+      modulesList = this.props.modules.map(function(module) {
+        return <ModuleList
+          img={module.path}
+          id={module._id}
+          title={module.name}
+          commentary={module.commentary}
+          navigate={self.props.navigate}
+          category={module.category}
+          key={module._id} />;
+      });
+    }
 
     return (
       <View style={AppStyles.block}>
