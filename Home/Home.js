@@ -68,9 +68,11 @@ export default class HomeScreen extends React.Component {
 
         <SearchField navigate={this.props.navigation.navigate} />
 
-        <HomeCarousel imgs={this.state.modulesList.map(function(module){
-          return module.path;
-        })} />
+        <HomeCarousel imgs={
+            ['assets/img/portfolio/01.jpg',
+            'assets/img/portfolio/02.jpg',
+            'assets/img/portfolio/03.jpg']
+          } />
 
         <HomeCategories navigate={this.props.navigation.navigate} />
 

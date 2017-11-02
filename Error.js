@@ -29,6 +29,8 @@ export default class ErrorScreen extends React.Component {
     this.state = {
       error: this.props.navigation.state.params.error == "no network" ?
       "Waiting for network to come back" :
+      this.props.navigation.state.params.error == "login" ?
+      "Wrong credentials" :
       "Error requesting API, please try later"
     }
   }

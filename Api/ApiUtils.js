@@ -1,18 +1,20 @@
 import React from 'react';
-import { NetInfo } from 'react-native';
+import { NetInfo, ToastAndroid } from 'react-native';
 
 var ApiUtils = {
 
   checkStatus: function(response) {
+    console.log(response);
     if (response.status >= 200 && response.status < 300) {
       return response;
-    } else {
-      ToastAndroid.show(
-        'Oops, an error occured',
-        ToastAndroid.SHORT
-      );
-      return {error: 'status error'}
     }
+    ToastAndroid.show(
+      'Oops, an error occured',
+      ToastAndroid.SHORT
+    );
+    return new Response('{"error": "no network"}', {
+      headers: {'Content-Type': 'application/json'}
+    });
   },
 
   checkNetwork: function() {
