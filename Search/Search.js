@@ -36,10 +36,12 @@ export default class SearchScreen extends React.Component {
     var self = this;
     Api.modules(this.props.navigation.state.params)
     .then(function(res) {
-      self.setState({
-        isLoading: false,
-        modules: res
-      })
+      if (!res.error) {
+        self.setState({
+          isLoading: false,
+          modules: res
+        })
+      } else { self.props.navigation.navigate('Error', {error:res.error}) }
     })
   }
 

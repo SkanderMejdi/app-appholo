@@ -17,8 +17,6 @@ export default class HomeCarousel extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log('ttttttttttttttttt');
-    console.log(this.props);
     this.state = {
       size: this.getSize(window),
     };

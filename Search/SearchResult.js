@@ -12,11 +12,6 @@ import ModuleList from '../Module/ModuleList.js';
 
 export default class SearchResult extends React.Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
-
   render() {
 
     var self = this;

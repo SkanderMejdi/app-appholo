@@ -72,11 +72,10 @@ export default class LoginScreen extends React.Component {
 
   onLogin = (email, password) => {
     var self = this;
-    self.props.navigation.navigate('Home')
     Api.login(email, password).then(function(res) {
-      if (res._id) {
+      if (!res.error) {
         self.props.navigation.navigate('Home')
-      }
+      } else { self.props.navigation.navigate('Error', {error: 'no network'}) }
     });
   }
 

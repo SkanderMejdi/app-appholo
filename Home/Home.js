@@ -11,8 +11,8 @@ import AppStyles from '../AppStyles.js';
 import HomeStyles from './HomeStyles.js';
 import ModuleStyles from '../Module/ModuleStyles.js';
 
-import ModuleUtils from '../Module/ModuleUtils.js';
 import Api from '../Api/Api.js';
+import ModuleUtils from '../Module/ModuleUtils.js';
 import HomeCategories from './HomeCategories.js';
 import HomeCarousel from './HomeCarousel.js';
 import ModuleSmall from '../Module/ModuleSmall.js';
@@ -42,11 +42,13 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     var self = this;
     Api.modules({}).then(function(res) {
-      self.setState({
-        isLoading: false,
-        modulesList: ModuleUtils.buildSmall(res, self),
-        modules: res
-      })
+      if (!res.error) {
+        self.setState({
+          isLoading: false,
+          modulesList: ModuleUtils.buildSmall(res, self),
+          modules: res
+        })
+      } else { self.props.navigation.navigate('Error', {error:res.error}) }
     })
   }
 

@@ -6,6 +6,7 @@ import HomeScreen from './Home/Home';
 import LoginScreen from './Login/Login';
 import SearchScreen from './Search/Search';
 import ModuleScreen from './Module/Module';
+import ErrorScreen from './Error';
 
 UIManager.setLayoutAnimationEnabledExperimental
 && UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -14,6 +15,7 @@ const Appholo = StackNavigator({
   Login: { screen: LoginScreen },
   Home: { screen: HomeScreen },
   Search: { screen: SearchScreen },
+  Error: { screen: ErrorScreen },
   Module: { screen: ModuleScreen }
 });
 

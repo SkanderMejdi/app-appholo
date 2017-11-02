@@ -1,7 +1,12 @@
 import React from 'react';
-import { Image } from 'react-native';
+import {
+  Image,
+  View,
+  Text
+} from 'react-native';
 
 import ModuleStyles from './ModuleStyles.js';
+import AppStyles from '../AppStyles.js';
 
 import ModuleSmall from './ModuleSmall.js';
 
@@ -47,6 +52,13 @@ var ModuleUtils = {
   },
 
   buildSmall: function(json, component) {
+    if (json.length == 0) {
+      return (
+        <View style={AppStyles.logMessageBox}>
+          <Text style={AppStyles.logMessage}>Pas de résultats</Text>
+        </View>
+      )
+    }
     return json.map(function(module) {
       return <ModuleSmall
         navigate={component.props.navigation.navigate}

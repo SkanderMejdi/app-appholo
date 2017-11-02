@@ -63,33 +63,39 @@ export default class ModuleScreen extends React.Component {
     });
   }
 
+  handleSimilar(modules, module) {
+    for (var i = 0; i < modules.length; i++) {
+      if (modules[i]._id == module._id) {
+        modules.splice(i, 1);
+        break;
+      }
+    }
+    if (modules.length == 0) {
+      return (
+        <View style={AppStyles.logMessageBox}>
+          <Text style={AppStyles.logMessage}>Pas de modules similaires</Text>
+        </View>
+      )
+    }
+    return ModuleUtils.buildSmall(modules, self)
+  }
+
   componentDidMount() {
     var self = this;
     Api.module(this.props.navigation.state.params.id)
     .then(function(module) {
-      Api.modules({them: module.them})
-      .then(function(modules) {
-        for (var i = 0; i < modules.length; i++) {
-          if (modules[i]._id == module._id) {
-            modules.splice(i, 1);
-            break;
-          }
-          console.log('titi');
-        }
-        if (modules.length == 0) {
-          modules =
-          <View style={AppStyles.logMessageBox}>
-            <Text style={AppStyles.logMessage}>Pas de modules similaires</Text>
-          </View>
-        } else {
-          modules = ModuleUtils.buildSmall(modules, self)
-        }
-        self.setState({
-          isLoading: false,
-          module: module,
-          modules: modules
+      if (!module.error) {
+        Api.modules({them: module.them})
+        .then(function(modules) {
+          if (!modules.error) {
+            self.setState({
+              isLoading: false,
+              module: module,
+              modules: handleSimilar(modules, module)
+            })
+          } else { self.props.navigation.navigate('Error', {error:module.error}) }
         })
-      })
+      } else { self.props.navigation.navigate('Error', {error:modules.error}) }
     })
   }
 
@@ -117,6 +123,12 @@ export default class ModuleScreen extends React.Component {
       return (
         <View style={AppStyles.loadingBox}>
           <ActivityIndicator size="large" />
+        </View>
+      );
+    } else if (this.state.isLoading == -1) {
+      return (
+        <View style={AppStyles.loadingBox}>
+          <Text>Tototo</Text>
         </View>
       );
     }
@@ -161,26 +173,26 @@ export default class ModuleScreen extends React.Component {
                 <Text style={ModuleStyles.starReviewsText}>{
                     ModuleUtils.getStars(this.state.module.commentary)
                   }</Text>
-                <Image source={require('../Assets/star.png')}
-                  style={[AppStyles.image, ModuleStyles.starReviewsImage]} />
+                  <Image source={require('../Assets/star.png')}
+                    style={[AppStyles.image, ModuleStyles.starReviewsImage]} />
+                </View>
+                { this.buildReviews() }
               </View>
-              { this.buildReviews() }
+
+              <View style={[AppStyles.block, {marginBottom: 20}]}>
+                <Text style={AppStyles.blockTitle}>Similar</Text>
+                <ScrollView
+                  ref={(latestModules) => { this.latestModules = latestModules; }}
+                  style={ModuleStyles.smallBlock}
+                  horizontal={true}>
+                  { this.state.modules }
+                </ScrollView>
+              </View>
             </View>
 
-            <View style={[AppStyles.block, {marginBottom: 20}]}>
-              <Text style={AppStyles.blockTitle}>Similar</Text>
-              <ScrollView
-                ref={(latestModules) => { this.latestModules = latestModules; }}
-                style={ModuleStyles.smallBlock}
-                horizontal={true}>
-                { this.state.modules }
-              </ScrollView>
-            </View>
-          </View>
+          </ScrollView>
 
-        </ScrollView>
-
-      </View>
-    );
+        </View>
+      );
+    }
   }
-}
