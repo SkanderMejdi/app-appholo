@@ -9,10 +9,10 @@ var ApiUtils = {
       return response;
     }
     ToastAndroid.show(
-      'Oops, an error occured',
+      'Oops, invalid credentials',
       ToastAndroid.SHORT
     );
-    return new Response('{"error": "no network"}', {
+    return new Response('{"error": "login"}', {
       headers: {'Content-Type': 'application/json'}
     });
   },

@@ -1,0 +1,6 @@
+{
+    "apps": [{
+	"name": "web",
+	"script": "server/app.js"
+    }]
+}

@@ -1,6 +1,15 @@
 {
   "expo": {
-    "sdkVersion": "21.0.0"
+    "name": "AppHolo",
+    "slug": "appholo",
+    "version": "1.0.0",
+    "sdkVersion": "21.0.0",
+    "android": {
+      "package": "com.appholo.appholo"
+    },
+    "ios": {
+      "bundleIdentifier": "com.appholo.appholo"
+    },
   },
   "androidStatusBarColor": "#334393",
   "androidStatusBar": {
