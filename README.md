@@ -1,15 +1,15 @@
 
 APPHOLO
 
-Table of Contents :
+Table of Contents:
 
-Introduction
-Requirements
-Installation
-Features
-Technical Constraints
-Troubleshooting
-Contributing
+- Introduction
+- Requirement
+- Installation
+- Features
+- Technical Constraints
+- Troubleshooting
+- Contributing
 
 
 Introduction:
@@ -71,6 +71,6 @@ Skander Mejdi (mejdi_s)
 
 Ahmed Zighed (zighed_a)
 
-
+We did not assist to the Mobile Hybrid Workshops.
 
 
