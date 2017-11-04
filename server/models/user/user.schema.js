@@ -1,10 +1,6 @@
 module.exports = function(db) {
 
     return new db.Schema({
-	id: {
-	    type: Number,
-	    required: true
-	},
 	firstname: {
 	    type: String,
 	    required: true
