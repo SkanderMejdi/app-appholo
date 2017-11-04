@@ -37,7 +37,6 @@ export default class ModuleScreen extends React.Component {
 
   constructor(props) {
     super(props);
-    console.log(this.props);
     this.state = {
       scrollY: new Animated.Value(0),
       isLoading: true
@@ -77,7 +76,7 @@ export default class ModuleScreen extends React.Component {
         </View>
       )
     }
-    return ModuleUtils.buildSmall(modules, self)
+    return ModuleUtils.buildSmall(modules, this)
   }
 
   componentDidMount() {
@@ -91,7 +90,7 @@ export default class ModuleScreen extends React.Component {
             self.setState({
               isLoading: false,
               module: module,
-              modules: handleSimilar(modules, module)
+              modules: self.handleSimilar(modules, module)
             })
           } else { self.props.navigation.navigate('Error', {error:module.error}) }
         })
