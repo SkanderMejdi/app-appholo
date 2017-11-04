@@ -139,7 +139,7 @@ export default class ModuleScreen extends React.Component {
         <Animated.View style={[ModuleStyles.topBlock, {height: headerHeight}]}>
           <Animated.Image
             source={{
-              uri: 'http://eip.epitech.eu/2018/appholo/'+this.state.module.path
+              uri: 'https://eip.epitech.eu/2018/appholo/'+this.state.module.path
             }}
             style={[AppStyles.image, {opacity: imageOpacity}]} />
           <Animated.View style={{height: headerPaddingHeight}}></Animated.View>
@@ -164,7 +164,9 @@ export default class ModuleScreen extends React.Component {
               <Text>{this.state.module.description}</Text>
             </View>
 
-            <HomeCarousel imgs={this.state.module.screenshots} />
+            <HomeCarousel imgs={this.state.module.screenshots.map(function(img) {
+                return img.path
+              })} />
 
             <View style={AppStyles.block}>
               <Text style={AppStyles.blockTitle}>Reviews</Text>

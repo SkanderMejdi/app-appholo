@@ -22,7 +22,7 @@ export default class ModuleSmall extends React.Component {
         )}>
         <View style={ModuleStyles.small}>
           <Image source={{
-              uri: 'http://eip.epitech.eu/2018/appholo/'+this.props.img
+              uri: 'https://eip.epitech.eu/2018/appholo/'+this.props.img
             }} style={ModuleStyles.smallThumbnail} />
           <View style={ModuleStyles.smallText}>
             <Text style={ModuleStyles.smallTitle}>{this.props.title}</Text>

@@ -47,8 +47,9 @@ export default class HomeCarousel extends React.Component {
       return (
         <View key={index} style={self.state.size}>
           <Image source={{
-              uri: 'http://eip.epitech.eu/2018/appholo/'+img
+              uri: 'https://eip.epitech.eu/2018/appholo/'+img
             }} style={AppStyles.image} />
+          <Text>{'https://eip.epitech.eu/2018/appholo/'+img}</Text>
         </View>
       )
     })

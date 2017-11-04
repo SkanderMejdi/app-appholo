@@ -18,7 +18,7 @@ export default class ModuleList extends React.Component {
     return (
       <View style={ModuleStyles.list}>
         <Image ref={"List"+this.props.title} source={{
-            uri: 'http://eip.epitech.eu/2018/appholo/'+this.props.img
+            uri: 'https://eip.epitech.eu/2018/appholo/'+this.props.img
           }} style={ModuleStyles.listThumbnails} />
         <View style={ModuleStyles.listText}>
           <Text style={ModuleStyles.listTitle}>{this.props.title}</Text>
