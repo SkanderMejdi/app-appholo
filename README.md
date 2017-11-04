@@ -71,6 +71,6 @@ Skander Mejdi (mejdi_s)
 
 Ahmed Zighed (zighed_a)
 
-We did not assist to the Mobile Hybrid Workshops.
+We did not assist the Mobile Hybrid Workshops.
 
 
