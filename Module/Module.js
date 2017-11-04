@@ -84,7 +84,7 @@ export default class ModuleScreen extends React.Component {
     Api.module(this.props.navigation.state.params.id)
     .then(function(module) {
       if (!module.error) {
-        Api.modules({them: module.them})
+        Api.modules({theme: module.theme})
         .then(function(modules) {
           if (!modules.error) {
             self.setState({
