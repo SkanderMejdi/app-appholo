@@ -46,6 +46,9 @@ After signing up you can access to your accounts features,
 - Search for a module
 - Latest Module section
 
+Phone feature:
+
+Check newtork, ToastAndroid
 
 Technical Constraints:
 
