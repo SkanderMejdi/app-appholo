@@ -14,7 +14,7 @@ Table of Contents:
 
 Introduction:
 
-APPHOLO is an hybrid mobile application. It’s goal is to manage your account on the APPHOLO project site (http://appholo.raidghost.com/). 
+APPHOLO is an hybrid mobile application. It’s goal is to manage your account on the APPHOLO project site (http://eip.epitech.eu/2018/appholo/). 
 The APPHOLO project is an Epitech Innovative Project, a platform of encyclopedic modules working on Hololens which aims to make information and knowledge more immersive, more attractive. Thanks to Hololens technology, our application is able to give life to the domain you're interested in and you will learn in a more playful way.
 The dedicated website allow users to manage their APPHOLO’s modules.
 
